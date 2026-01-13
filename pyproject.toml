@@ -1,6 +1,6 @@
 [project]
 name = "agrodigital_io"
-version = "0.1.1"
+version = "0.1.2"
 description = "Python SDK for agrodigital.io."
 authors = [
     {name = "Joaquin Peraza",email = "joaquin@peraza.uy"}
