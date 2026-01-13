@@ -3,7 +3,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/agrodigital_io.svg)](https://pypi.org/project/agrodigital_io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A modern, easy-to-use Python SDK for interacting with the [agrodigital.io](https://agrodigital.io) API. This library provides a high-level interface to manage agricultural entities, IoT data, meteorological stations, and satellite imagery analysis.
+A modern, easy-to-use Python SDK for interacting with the [agrodigital.io](https://agrodigital.io/api/docs) API. This library provides a high-level interface to manage agricultural entities, IoT data, meteorological stations, and satellite imagery analysis.
 
 ## Features
 
