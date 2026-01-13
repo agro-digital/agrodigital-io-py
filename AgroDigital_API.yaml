@@ -1,0 +1,4820 @@
+openapi: 3.0.3
+info:
+  title: AgroDigital API
+  version: 1.0.0
+  description: API Documentation for AgroDigital services
+paths:
+  /api/agroq/:
+    get:
+      operationId: api_agroq_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Agrochemical'
+          description: ''
+  /api/agroq/{id}/:
+    get:
+      operationId: api_agroq_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this agrochemical.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agrochemical'
+          description: ''
+  /api/auth/:
+    post:
+      operationId: api_auth_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/auth/register/:
+    post:
+      operationId: api_auth_register_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Users'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Users'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+          description: ''
+  /api/auth/user/:
+    get:
+      operationId: api_auth_user_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+          description: ''
+    put:
+      operationId: api_auth_user_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Users'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Users'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+          description: ''
+    patch:
+      operationId: api_auth_user_partial_update
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUsers'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUsers'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUsers'
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+          description: ''
+  /api/auth/users/:
+    get:
+      operationId: api_auth_users_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PartialUser'
+          description: ''
+  /api/auth/users/{id}/:
+    get:
+      operationId: api_auth_users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartialUser'
+          description: ''
+  /api/bugs/:
+    get:
+      operationId: api_bugs_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bug'
+          description: ''
+  /api/bugs/{id}/:
+    get:
+      operationId: api_bugs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bug.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bug'
+          description: ''
+  /api/cluster/ee/:
+    get:
+      operationId: api_cluster_ee_retrieve
+      parameters:
+      - in: query
+        name: from
+        schema:
+          type: string
+        description: Date from, format YYYY-MM-DD
+        required: true
+      - in: query
+        name: n
+        schema:
+          type: integer
+        description: Number of clusters
+        required: true
+      - in: query
+        name: polygon
+        schema:
+          type: string
+        description: Polygon ID
+        required: true
+      - in: query
+        name: to
+        schema:
+          type: string
+        description: Date to, format YYYY-MM-DD
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                Example1:
+                  value:
+                    type: FeatureCollection
+                    columns:
+                      count: Long<0, 4294967295>
+                      label: Integer
+                      mean: Float<-1.0, 1.0>
+                      system:index: String
+                    features:
+                    - type: Feature
+                      geometry:
+                        type: Polygon
+                        coordinates:
+                        - - 0
+                          - 0
+                        - - 0
+                          - 1
+                        - - 1
+                          - 1
+                        - - 0
+                          - 0
+                      properties:
+                        count: 1
+                        label: 1
+                        mean: 0.5
+                  summary: Example 1
+                  description: An example response of a successful clustering. Properties
+                    include pixel count, and class NDVI
+          description: Clustering was successful.
+  /api/cluster/field/:
+    get:
+      operationId: api_cluster_field_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/cluster/local/:
+    get:
+      operationId: api_cluster_local_retrieve
+      parameters:
+      - in: query
+        name: from
+        schema:
+          type: string
+        description: Date from, format YYYY-MM-DD
+        required: true
+      - in: query
+        name: n
+        schema:
+          type: integer
+        description: Number of clusters
+        required: true
+      - in: query
+        name: polygon
+        schema:
+          type: string
+        description: Polygon ID
+        required: true
+      - in: query
+        name: source
+        schema:
+          type: string
+        description: Satellite source
+        required: true
+        examples:
+          SD:
+            value: SE2
+          HD:
+            value: PLA
+      - in: query
+        name: to
+        schema:
+          type: string
+        description: Date to, format YYYY-MM-DD
+        required: true
+      - in: query
+        name: type
+        schema:
+          type: string
+        description: Type of input
+        required: true
+        examples:
+          NDVIRGB:
+            value: NDVIRGB
+          NDVI:
+            value: NDVI
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                Example1:
+                  value:
+                    type: FeatureCollection
+                    features:
+                    - type: Feature
+                      properties:
+                        x: 0
+                        y: 0
+                        ndvi_mean: 0.5
+                      geometry:
+                        type: MultiPolygon
+                        coordinates:
+                        - - - - 0
+                              - 0
+                            - - 0
+                              - 1
+                            - - 1
+                              - 1
+                            - - 0
+                              - 0
+                        - - - - 2
+                              - 2
+                            - - 2
+                              - 3
+                            - - 3
+                              - 3
+                            - - 2
+                              - 2
+                    - type: Feature
+                      properties:
+                        x: 1
+                        y: 1
+                        ndvi_mean: 0.9
+                      geometry:
+                        type: MultiPolygon
+                        coordinates:
+                        - - - - 0
+                              - 0
+                            - - 0
+                              - 1
+                            - - 1
+                              - 1
+                            - - 0
+                              - 0
+                        - - - - 2
+                              - 2
+                            - - 2
+                              - 3
+                            - - 3
+                              - 3
+                            - - 2
+                              - 2
+                  summary: Example 1
+                  description: An example response of a successful clustering. Properties
+                    include mean NDVI
+          description: Clustering was successful.
+  /api/companies/:
+    get:
+      operationId: api_companies_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+          description: ''
+  /api/companies/{id}/:
+    get:
+      operationId: api_companies_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+          description: ''
+  /api/crops/:
+    get:
+      operationId: api_crops_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Crop'
+          description: ''
+  /api/crops/{id}/:
+    get:
+      operationId: api_crops_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crop'
+          description: ''
+  /api/diseases/:
+    get:
+      operationId: api_diseases_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Disease'
+          description: ''
+  /api/diseases/{id}/:
+    get:
+      operationId: api_diseases_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this disease.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Disease'
+          description: ''
+  /api/farms/:
+    get:
+      operationId: api_farms_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Farm'
+          description: ''
+    post:
+      operationId: api_farms_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Farm'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+          description: ''
+  /api/farms/{id}/:
+    get:
+      operationId: api_farms_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+          description: ''
+    put:
+      operationId: api_farms_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Farm'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+          description: ''
+    patch:
+      operationId: api_farms_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFarm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFarm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFarm'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+          description: ''
+    delete:
+      operationId: api_farms_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/fertilizers/:
+    get:
+      operationId: api_fertilizers_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FertilizerNutrient'
+          description: ''
+  /api/fertilizers/{id}/:
+    get:
+      operationId: api_fertilizers_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this fertilizer nutrient.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FertilizerNutrient'
+          description: ''
+  /api/field_var/:
+    get:
+      operationId: api_field_var_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FieldDataVariable'
+          description: ''
+  /api/field_var/{id}/:
+    get:
+      operationId: api_field_var_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this field data variable.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FieldDataVariable'
+          description: ''
+  /api/fields/:
+    get:
+      operationId: api_fields_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Field'
+          description: ''
+    post:
+      operationId: api_fields_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Field'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Field'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Field'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+          description: ''
+  /api/fields/{id}/:
+    get:
+      operationId: api_fields_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+          description: ''
+    put:
+      operationId: api_fields_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Field'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Field'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Field'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+          description: ''
+    patch:
+      operationId: api_fields_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedField'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedField'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedField'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Field'
+          description: ''
+    delete:
+      operationId: api_fields_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/geojson2kml/:
+    post:
+      operationId: api_geojson2kml_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/indexes/:
+    get:
+      operationId: api_indexes_list
+      parameters:
+      - in: query
+        name: discard
+        schema:
+          type: boolean
+        description: Discard
+      - in: query
+        name: field
+        schema:
+          type: integer
+        description: Field id
+        required: true
+      - in: query
+        name: sources[]
+        schema:
+          type: string
+          enum:
+          - - LA8
+            - Landsat 8
+          - - LA9
+            - Landsat 9
+          - - PLA
+            - PlanetScope
+          - - PLM
+            - Planet + Modis
+          - - SE2
+            - Sentinel 2
+        description: Sources
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Index'
+          description: ''
+  /api/indexes/{id}/:
+    get:
+      operationId: api_indexes_retrieve
+      parameters:
+      - in: query
+        name: discard
+        schema:
+          type: boolean
+        description: Discard
+      - in: query
+        name: field
+        schema:
+          type: integer
+        description: Field id
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this index.
+        required: true
+      - in: query
+        name: sources[]
+        schema:
+          type: string
+          enum:
+          - - LA8
+            - Landsat 8
+          - - LA9
+            - Landsat 9
+          - - PLA
+            - PlanetScope
+          - - PLM
+            - Planet + Modis
+          - - SE2
+            - Sentinel 2
+        description: Sources
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Index'
+          description: ''
+  /api/iot/data/:
+    get:
+      operationId: api_iot_data_list
+      parameters:
+      - in: query
+        name: convert
+        schema:
+          type: boolean
+        description: Convert radiation values to new unit (true/false)
+      - in: query
+        name: from
+        schema:
+          type: string
+          format: date
+        description: Start date to filter data (YYYY-MM-DD)
+      - in: query
+        name: station
+        schema:
+          type: integer
+        description: Station ID to filter data
+        required: true
+      - in: query
+        name: to
+        schema:
+          type: string
+          format: date
+        description: End date to filter data (YYYY-MM-DD)
+      - in: query
+        name: variables
+        schema:
+          type: string
+        description: List of variable IDs to filter data (e.g., ?variables=1&variables=2)
+        explode: true
+        style: form
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IotData'
+          description: ''
+  /api/iot/data/{id}/:
+    get:
+      operationId: api_iot_data_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this iot data.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IotData'
+          description: ''
+  /api/iot/stations/:
+    get:
+      operationId: api_iot_stations_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+          description: ''
+  /api/iot/stations/{id}/:
+    get:
+      operationId: api_iot_stations_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+          description: ''
+  /api/iot/variables/:
+    get:
+      operationId: api_iot_variables_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Variable'
+          description: ''
+  /api/iot/variables/{id}/:
+    get:
+      operationId: api_iot_variables_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this variable.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variable'
+          description: ''
+  /api/lab_var/:
+    get:
+      operationId: api_lab_var_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LabDataVariable'
+          description: ''
+  /api/lab_var/{id}/:
+    get:
+      operationId: api_lab_var_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this lab data variable.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabDataVariable'
+          description: ''
+  /api/licenses/:
+    get:
+      operationId: api_licenses_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/License'
+          description: ''
+    post:
+      operationId: api_licenses_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/License'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/License'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/License'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+          description: ''
+  /api/licenses/{id}/:
+    get:
+      operationId: api_licenses_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+          description: ''
+  /api/logs/:
+    get:
+      operationId: api_logs_list
+      parameters:
+      - in: query
+        name: polymorphic_ctype
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
+          description: ''
+    post:
+      operationId: api_logs_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+  /api/logs/{id}/:
+    get:
+      operationId: api_logs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+    put:
+      operationId: api_logs_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Log'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Log'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Log'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+    patch:
+      operationId: api_logs_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLog'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLog'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLog'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+          description: ''
+    delete:
+      operationId: api_logs_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/meteo/data/:
+    get:
+      operationId: api_meteo_data_list
+      parameters:
+      - in: query
+        name: field
+        schema:
+          type: integer
+        description: ID of the field to get the closest station meteo data
+      - in: query
+        name: from
+        schema:
+          type: string
+          format: date
+        description: Start date to filter the meteo data
+      - in: query
+        name: station
+        schema:
+          type: integer
+        description: ID of the station to get meteo data from
+      - in: query
+        name: to
+        schema:
+          type: string
+          format: date
+        description: End date to filter the meteo data
+      - in: query
+        name: variables
+        schema:
+          type: array
+          items:
+            type: string
+        description: List of variable, send as variables=1&variables=2&variables=3
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meteo'
+          description: ''
+    post:
+      operationId: api_meteo_data_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meteo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Meteo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Meteo'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meteo'
+          description: ''
+  /api/meteo/data/{id}/:
+    get:
+      operationId: api_meteo_data_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this meteo data.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meteo'
+          description: ''
+    put:
+      operationId: api_meteo_data_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this meteo data.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meteo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Meteo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Meteo'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meteo'
+          description: ''
+    patch:
+      operationId: api_meteo_data_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this meteo data.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMeteo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMeteo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMeteo'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meteo'
+          description: ''
+    delete:
+      operationId: api_meteo_data_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this meteo data.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/meteo/stations/:
+    get:
+      operationId: api_meteo_stations_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Station'
+          description: ''
+    post:
+      operationId: api_meteo_stations_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Station'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Station'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Station'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+          description: ''
+  /api/meteo/stations/{id}/:
+    get:
+      operationId: api_meteo_stations_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+          description: ''
+    put:
+      operationId: api_meteo_stations_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Station'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Station'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Station'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+          description: ''
+    patch:
+      operationId: api_meteo_stations_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStation'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Station'
+          description: ''
+    delete:
+      operationId: api_meteo_stations_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/meteo/variables/:
+    get:
+      operationId: api_meteo_variables_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Variable'
+          description: ''
+  /api/meteo/variables/{id}/:
+    get:
+      operationId: api_meteo_variables_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this variable.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variable'
+          description: ''
+  /api/narroz/:
+    get:
+      operationId: api_narroz_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/notifications/:
+    get:
+      operationId: api_notifications_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+          description: ''
+  /api/notifications/{id}/:
+    get:
+      operationId: api_notifications_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: ''
+    delete:
+      operationId: api_notifications_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/password_reset/:
+    post:
+      operationId: api_password_reset_create
+      description: |-
+        An Api View which provides a method to request a password reset token based on an e-mail address
+
+        Sends a signal reset_password_token_created when a reset token was created
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Email'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Email'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Email'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'
+          description: ''
+  /api/password_reset/confirm/:
+    post:
+      operationId: api_password_reset_confirm_create
+      description: An Api View which provides a method to reset a password based on
+        a unique token
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordToken'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordToken'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordToken'
+          description: ''
+  /api/password_reset/validate_token/:
+    post:
+      operationId: api_password_reset_validate_token_create
+      description: An Api View which provides a method to verify that a token is valid
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetToken'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ResetToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ResetToken'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetToken'
+          description: ''
+  /api/pheno_event/:
+    get:
+      operationId: api_pheno_event_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PhenoStage'
+          description: ''
+  /api/pheno_event/{id}/:
+    get:
+      operationId: api_pheno_event_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pheno stage.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhenoStage'
+          description: ''
+  /api/polygons/:
+    get:
+      operationId: api_polygons_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Polygon'
+          description: ''
+    post:
+      operationId: api_polygons_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Polygon'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Polygon'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Polygon'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Polygon'
+          description: ''
+  /api/polygons/{id}/:
+    get:
+      operationId: api_polygons_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Polygon'
+          description: ''
+    put:
+      operationId: api_polygons_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Polygon'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Polygon'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Polygon'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Polygon'
+          description: ''
+    patch:
+      operationId: api_polygons_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPolygon'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPolygon'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPolygon'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Polygon'
+          description: ''
+    delete:
+      operationId: api_polygons_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/rasters/:
+    get:
+      operationId: api_rasters_list
+      parameters:
+      - in: query
+        name: discard
+        schema:
+          type: boolean
+        description: Discard
+      - in: query
+        name: field
+        schema:
+          type: integer
+        description: Field id
+        required: true
+      - in: query
+        name: from
+        schema:
+          type: string
+        description: Date from, format YYYY-MM-DD
+      - in: query
+        name: n
+        schema:
+          type: integer
+        description: Limit of dates to pull
+      - in: query
+        name: sources[]
+        schema:
+          type: string
+          enum:
+          - - LA8
+            - Landsat 8
+          - - LA9
+            - Landsat 9
+          - - PLA
+            - PlanetScope
+          - - PLM
+            - Planet + Modis
+          - - SE2
+            - Sentinel 2
+        description: Sources
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Raster'
+          description: ''
+  /api/rasters/{id}/:
+    get:
+      operationId: api_rasters_retrieve
+      parameters:
+      - in: query
+        name: discard
+        schema:
+          type: boolean
+        description: Discard
+      - in: query
+        name: field
+        schema:
+          type: integer
+        description: Field id
+        required: true
+      - in: query
+        name: from
+        schema:
+          type: string
+        description: Date from, format YYYY-MM-DD
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this raster.
+        required: true
+      - in: query
+        name: n
+        schema:
+          type: integer
+        description: Limit of dates to pull
+      - in: query
+        name: sources[]
+        schema:
+          type: string
+          enum:
+          - - LA8
+            - Landsat 8
+          - - LA9
+            - Landsat 9
+          - - PLA
+            - PlanetScope
+          - - PLM
+            - Planet + Modis
+          - - SE2
+            - Sentinel 2
+        description: Sources
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Raster'
+          description: ''
+  /api/rasters/dates/:
+    get:
+      operationId: api_rasters_dates_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/rasters/discard/:
+    get:
+      operationId: api_rasters_discard_retrieve
+      parameters:
+      - in: query
+        name: date
+        schema:
+          type: string
+        description: Date to discard, format YYYY-MM-DD
+        required: true
+      - in: query
+        name: polygon
+        schema:
+          type: string
+        description: Polygon ID
+        required: true
+      - in: query
+        name: source
+        schema:
+          type: string
+        description: Source
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Discarding was successful.
+  /api/rice_curve/:
+    get:
+      operationId: api_rice_curve_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/riceyield/:
+    get:
+      operationId: api_riceyield_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/varieties/:
+    get:
+      operationId: api_varieties_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Variety'
+          description: ''
+  /api/varieties/{id}/:
+    get:
+      operationId: api_varieties_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variety'
+          description: ''
+  /api/water_event/:
+    get:
+      operationId: api_water_event_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WaterEvent'
+          description: ''
+  /api/water_event/{id}/:
+    get:
+      operationId: api_water_event_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this water event.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WaterEvent'
+          description: ''
+  /api/waypoints/:
+    get:
+      operationId: api_waypoints_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Waypoint'
+          description: ''
+    post:
+      operationId: api_waypoints_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Waypoint'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Waypoint'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Waypoint'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Waypoint'
+          description: ''
+  /api/waypoints/{id}/:
+    get:
+      operationId: api_waypoints_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Waypoint'
+          description: ''
+    put:
+      operationId: api_waypoints_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Waypoint'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Waypoint'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Waypoint'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Waypoint'
+          description: ''
+    patch:
+      operationId: api_waypoints_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedWaypoint'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedWaypoint'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedWaypoint'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Waypoint'
+          description: ''
+    delete:
+      operationId: api_waypoints_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this log.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/weeds/:
+    get:
+      operationId: api_weeds_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Weed'
+          description: ''
+  /api/weeds/{id}/:
+    get:
+      operationId: api_weeds_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this weed.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Weed'
+          description: ''
+  /mcp:
+    get:
+      operationId: mcp_retrieve
+      tags:
+      - mcp
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: mcp_create
+      tags:
+      - mcp
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: mcp_destroy
+      tags:
+      - mcp
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /planet-webhook/:
+    post:
+      operationId: planet_webhook_create
+      tags:
+      - planet-webhook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+                description: Unspecified response body
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+                description: Unspecified response body
+          description: ''
+components:
+  schemas:
+    Agrochemical:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        active:
+          type: array
+          items:
+            type: string
+            maxLength: 50
+        formula:
+          type: array
+          items:
+            type: number
+            format: double
+        names:
+          type: array
+          items:
+            type: string
+            maxLength: 100
+        type:
+          allOf:
+          - $ref: '#/components/schemas/AgrochemicalTypeEnum'
+          title: Agrochemical family
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+      required:
+      - active
+      - formula
+      - id
+    AgrochemicalDose:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+        item:
+          type: integer
+      required:
+      - item
+      - value
+    AgrochemicalTypeEnum:
+      enum:
+      - HER
+      - INS
+      - FUN
+      type: string
+      description: |-
+        * `HER` - Herbicide
+        * `INS` - Insecticide
+        * `FUN` - Fungicide
+    Application:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgrochemicalDose'
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - id
+      - products
+    ApplicationTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/Application'
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    Bug:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        specie:
+          type: string
+          maxLength: 50
+        names:
+          type: array
+          items:
+            type: string
+            maxLength: 100
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+      required:
+      - id
+    BugReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+        species:
+          type: array
+          items:
+            type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - id
+      - species
+    BugReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/BugReport'
+    Company:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        logo:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - id
+      - name
+    CountryEnum:
+      enum:
+      - URY
+      - ARG
+      - BRA
+      - BOL
+      - PRY
+      - USA
+      - PER
+      - COL
+      - PRT
+      - VEN
+      - MEX
+      - CHL
+      - ECU
+      - GTM
+      - HND
+      - NIC
+      - CUB
+      - DOM
+      - HTI
+      - PAN
+      - CRI
+      - JAM
+      - CAN
+      - ESP
+      - ITA
+      - FRA
+      - HUN
+      - UKR
+      - ROU
+      - BGR
+      - SRB
+      - GRC
+      - NLD
+      - BEL
+      - DEU
+      - AUT
+      - POL
+      - GBR
+      - N/A
+      type: string
+      description: |-
+        * `URY` - Uruguay
+        * `ARG` - Argentina
+        * `BRA` - Brazil
+        * `BOL` - Bolivia
+        * `PRY` - Paraguay
+        * `USA` - United States
+        * `PER` - Peru
+        * `COL` - Colombia
+        * `PRT` - Portugal
+        * `VEN` - Venezuela
+        * `MEX` - Mexico
+        * `CHL` - Chile
+        * `ECU` - Ecuador
+        * `GTM` - Guatemala
+        * `HND` - Honduras
+        * `NIC` - Nicaragua
+        * `CUB` - Cuba
+        * `DOM` - Dominican Republic
+        * `HTI` - Haiti
+        * `PAN` - Panama
+        * `CRI` - Costa Rica
+        * `JAM` - Jamaica
+        * `CAN` - Canada
+        * `ESP` - Spain
+        * `ITA` - Italy
+        * `FRA` - France
+        * `HUN` - Hungary
+        * `UKR` - Ukraine
+        * `ROU` - Romania
+        * `BGR` - Bulgaria
+        * `SRB` - Serbia
+        * `GRC` - Greece
+        * `NLD` - Netherlands
+        * `BEL` - Belgium
+        * `DEU` - Germany
+        * `AUT` - Austria
+        * `POL` - Poland
+        * `GBR` - United Kingdom
+        * `N/A` - Not specified
+    Crop:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        specie:
+          type: string
+          maxLength: 50
+        name:
+          type: string
+          maxLength: 50
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+      required:
+      - id
+    Disease:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        specie:
+          type: string
+          maxLength: 50
+        names:
+          type: array
+          items:
+            type: string
+            maxLength: 100
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+      required:
+      - id
+    DisesaseReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+        species:
+          type: array
+          items:
+            type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - id
+      - species
+    DisesaseReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/DisesaseReport'
+    Email:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    Farm:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        owner:
+          type: integer
+        fields:
+          type: array
+          items:
+            type: integer
+      required:
+      - id
+      - name
+      - owner
+    Fertilization:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nutrients:
+          type: array
+          items:
+            $ref: '#/components/schemas/FertilizerDose'
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: number
+          format: double
+        polygons:
+          type: array
+          items:
+            type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - id
+      - nutrients
+      - value
+    FertilizationTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/Fertilization'
+    FertilizerDose:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+        item:
+          type: integer
+      required:
+      - item
+      - value
+    FertilizerNutrient:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+      required:
+      - id
+    Field:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        area:
+          type: string
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        owner:
+          type: integer
+        access:
+          type: array
+          items:
+            type: integer
+        polygons:
+          type: array
+          items:
+            type: integer
+      required:
+      - area
+      - deleted
+      - deleted_by_cascade
+      - id
+      - name
+      - owner
+    FieldDataVariable:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        unit:
+          type: string
+          maxLength: 50
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+      required:
+      - id
+    FieldReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          nullable: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: number
+          format: double
+          nullable: true
+        loc:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - Point
+            coordinates:
+              type: array
+              items:
+                type: number
+                format: float
+              example:
+              - 12.9721
+              - 77.5933
+              minItems: 2
+              maxItems: 3
+          nullable: true
+        variable:
+          type: integer
+        polygons:
+          type: array
+          items:
+            type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - id
+      - image
+      - variable
+    FieldReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/FieldReport'
+    Index:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Raster date
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeF9fEnum'
+          default: RGB
+          title: Raster type
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          default: SE2
+          title: Raster source
+        discard:
+          type: boolean
+        value:
+          type: number
+          format: double
+        polygon:
+          type: integer
+        detection:
+          type: integer
+          nullable: true
+      required:
+      - id
+      - polygon
+      - value
+    IotData:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        value:
+          type: number
+          format: double
+        date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Timestamp date
+        variable:
+          type: integer
+        station:
+          type: integer
+          nullable: true
+      required:
+      - date
+      - id
+      - value
+      - variable
+    LabDataVariable:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        unit:
+          type: string
+          maxLength: 50
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+      required:
+      - id
+    LabReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabResult'
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - id
+      - results
+    LabReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/LabReport'
+    LabResult:
+      type: object
+      properties:
+        value:
+          type: number
+          format: double
+        item:
+          type: integer
+      required:
+      - item
+      - value
+    License:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        date:
+          type: string
+          format: date-time
+          nullable: true
+          title: End date
+        max_area:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Area contratada
+        footprint:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - MultiPolygon
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+                    example:
+                    - 12.9721
+                    - 77.5933
+                    minItems: 2
+                    maxItems: 3
+                  example:
+                  - - 22.4707
+                    - 70.0577
+                  - - 12.9721
+                    - 77.5933
+                  minItems: 4
+                example:
+                - - - 0.0
+                    - 0.0
+                  - - 0.0
+                    - 50.0
+                  - - 50.0
+                    - 50.0
+                  - - 50.0
+                    - 0.0
+                  - - 0.0
+                    - 0.0
+          nullable: true
+        product:
+          $ref: '#/components/schemas/ProductEnum'
+        user:
+          type: integer
+          nullable: true
+        fields:
+          type: array
+          items:
+            type: integer
+      required:
+      - id
+      - max_area
+      - name
+    Log:
+      oneOf:
+      - $ref: '#/components/schemas/SowingTyped'
+      - $ref: '#/components/schemas/PhenologyTyped'
+      - $ref: '#/components/schemas/WaterTyped'
+      - $ref: '#/components/schemas/YieldTyped'
+      - $ref: '#/components/schemas/FertilizationTyped'
+      - $ref: '#/components/schemas/ApplicationTyped'
+      - $ref: '#/components/schemas/LabReportTyped'
+      - $ref: '#/components/schemas/FieldReportTyped'
+      - $ref: '#/components/schemas/BugReportTyped'
+      - $ref: '#/components/schemas/WeedReportTyped'
+      - $ref: '#/components/schemas/DisesaseReportTyped'
+      discriminator:
+        propertyName: type
+        mapping:
+          Sowing: '#/components/schemas/SowingTyped'
+          Phenology: '#/components/schemas/PhenologyTyped'
+          Water: '#/components/schemas/WaterTyped'
+          Yield: '#/components/schemas/YieldTyped'
+          Fertilization: '#/components/schemas/FertilizationTyped'
+          Application: '#/components/schemas/ApplicationTyped'
+          LabReport: '#/components/schemas/LabReportTyped'
+          FieldReport: '#/components/schemas/FieldReportTyped'
+          BugReport: '#/components/schemas/BugReportTyped'
+          WeedReport: '#/components/schemas/WeedReportTyped'
+          DiseaseReport: '#/components/schemas/DisesaseReportTyped'
+    Meteo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Timestamp date
+        value:
+          type: number
+          format: double
+        variable:
+          type: integer
+        station:
+          type: integer
+          nullable: true
+      required:
+      - id
+      - value
+      - variable
+    Notification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          nullable: true
+          maxLength: 100
+        text:
+          type: string
+          nullable: true
+          maxLength: 1000
+        date:
+          type: string
+          format: date
+          title: Notification date
+        link:
+          type: string
+          nullable: true
+          maxLength: 100
+        link_text:
+          type: string
+          nullable: true
+          maxLength: 100
+        image:
+          type: string
+          format: uri
+          nullable: true
+        target_field:
+          type: integer
+          nullable: true
+      required:
+      - id
+    PartialUser:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 150
+      required:
+      - email
+      - id
+    PasswordToken:
+      type: object
+      properties:
+        password:
+          type: string
+        token:
+          type: string
+      required:
+      - password
+      - token
+    PatchedApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgrochemicalDose'
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+    PatchedApplicationTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedApplication'
+    PatchedBugReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+        species:
+          type: array
+          items:
+            type: integer
+    PatchedBugReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedBugReport'
+    PatchedDisesaseReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+        species:
+          type: array
+          items:
+            type: integer
+    PatchedDisesaseReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedDisesaseReport'
+    PatchedFarm:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        owner:
+          type: integer
+        fields:
+          type: array
+          items:
+            type: integer
+    PatchedFertilization:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        nutrients:
+          type: array
+          items:
+            $ref: '#/components/schemas/FertilizerDose'
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: number
+          format: double
+        polygons:
+          type: array
+          items:
+            type: integer
+    PatchedFertilizationTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedFertilization'
+    PatchedField:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        area:
+          type: string
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        owner:
+          type: integer
+        access:
+          type: array
+          items:
+            type: integer
+        polygons:
+          type: array
+          items:
+            type: integer
+    PatchedFieldReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+          nullable: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: number
+          format: double
+          nullable: true
+        loc:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - Point
+            coordinates:
+              type: array
+              items:
+                type: number
+                format: float
+              example:
+              - 12.9721
+              - 77.5933
+              minItems: 2
+              maxItems: 3
+          nullable: true
+        variable:
+          type: integer
+        polygons:
+          type: array
+          items:
+            type: integer
+    PatchedFieldReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedFieldReport'
+    PatchedLabReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabResult'
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+    PatchedLabReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedLabReport'
+    PatchedLog:
+      oneOf:
+      - $ref: '#/components/schemas/PatchedSowingTyped'
+      - $ref: '#/components/schemas/PatchedPhenologyTyped'
+      - $ref: '#/components/schemas/PatchedWaterTyped'
+      - $ref: '#/components/schemas/PatchedYieldTyped'
+      - $ref: '#/components/schemas/PatchedFertilizationTyped'
+      - $ref: '#/components/schemas/PatchedApplicationTyped'
+      - $ref: '#/components/schemas/PatchedLabReportTyped'
+      - $ref: '#/components/schemas/PatchedFieldReportTyped'
+      - $ref: '#/components/schemas/PatchedBugReportTyped'
+      - $ref: '#/components/schemas/PatchedWeedReportTyped'
+      - $ref: '#/components/schemas/PatchedDisesaseReportTyped'
+      discriminator:
+        propertyName: type
+        mapping:
+          Sowing: '#/components/schemas/PatchedSowingTyped'
+          Phenology: '#/components/schemas/PatchedPhenologyTyped'
+          Water: '#/components/schemas/PatchedWaterTyped'
+          Yield: '#/components/schemas/PatchedYieldTyped'
+          Fertilization: '#/components/schemas/PatchedFertilizationTyped'
+          Application: '#/components/schemas/PatchedApplicationTyped'
+          LabReport: '#/components/schemas/PatchedLabReportTyped'
+          FieldReport: '#/components/schemas/PatchedFieldReportTyped'
+          BugReport: '#/components/schemas/PatchedBugReportTyped'
+          WeedReport: '#/components/schemas/PatchedWeedReportTyped'
+          DiseaseReport: '#/components/schemas/PatchedDisesaseReportTyped'
+    PatchedMeteo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Timestamp date
+        value:
+          type: number
+          format: double
+        variable:
+          type: integer
+        station:
+          type: integer
+          nullable: true
+    PatchedPhenology:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: integer
+        polygons:
+          type: array
+          items:
+            type: integer
+    PatchedPhenologyTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedPhenology'
+    PatchedPolygon:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        area:
+          type: string
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        boundary:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - Polygon
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: number
+                    format: float
+                  example:
+                  - 12.9721
+                  - 77.5933
+                  minItems: 2
+                  maxItems: 3
+                example:
+                - - 22.4707
+                  - 70.0577
+                - - 12.9721
+                  - 77.5933
+                minItems: 4
+              example:
+              - - - 0.0
+                  - 0.0
+                - - 0.0
+                  - 50.0
+                - - 50.0
+                  - 50.0
+                - - 50.0
+                  - 0.0
+                - - 0.0
+                  - 0.0
+        mm:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Water storage (mm)
+        owner:
+          type: integer
+    PatchedSowing:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        crop:
+          type: integer
+        variety:
+          type: integer
+          nullable: true
+        predecessor:
+          type: integer
+          nullable: true
+        field:
+          type: integer
+          nullable: true
+        polygons:
+          type: array
+          items:
+            type: integer
+    PatchedSowingTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedSowing'
+    PatchedStation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        location:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - Point
+            coordinates:
+              type: array
+              items:
+                type: number
+                format: float
+              example:
+              - 12.9721
+              - 77.5933
+              minItems: 2
+              maxItems: 3
+        owner:
+          type: integer
+          nullable: true
+    PatchedUsers:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        company:
+          type: string
+          maxLength: 200
+        phone:
+          type: string
+          maxLength: 200
+        country:
+          $ref: '#/components/schemas/CountryEnum'
+        firebaseToken:
+          type: string
+          maxLength: 200
+    PatchedWater:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: integer
+        polygons:
+          type: array
+          items:
+            type: integer
+    PatchedWaterTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedWater'
+    PatchedWaypoint:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        loc:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - Point
+            coordinates:
+              type: array
+              items:
+                type: number
+                format: float
+              example:
+              - 12.9721
+              - 77.5933
+              minItems: 2
+              maxItems: 3
+        field:
+          type: integer
+    PatchedWeedReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+        species:
+          type: array
+          items:
+            type: integer
+    PatchedWeedReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedWeedReport'
+    PatchedYield:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Yield (kg/ha)
+        crop:
+          type: integer
+        variety:
+          type: integer
+          nullable: true
+        polygons:
+          type: array
+          items:
+            type: integer
+    PatchedYieldTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+      - $ref: '#/components/schemas/PatchedYield'
+    PhenoStage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+        crop:
+          type: integer
+      required:
+      - crop
+      - id
+    Phenology:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: integer
+        polygons:
+          type: array
+          items:
+            type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - id
+      - value
+    PhenologyTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/Phenology'
+    Polygon:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        area:
+          type: string
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        boundary:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - Polygon
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: number
+                    format: float
+                  example:
+                  - 12.9721
+                  - 77.5933
+                  minItems: 2
+                  maxItems: 3
+                example:
+                - - 22.4707
+                  - 70.0577
+                - - 12.9721
+                  - 77.5933
+                minItems: 4
+              example:
+              - - - 0.0
+                  - 0.0
+                - - 0.0
+                  - 50.0
+                - - 50.0
+                  - 50.0
+                - - 50.0
+                  - 0.0
+                - - 0.0
+                  - 0.0
+        mm:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          title: Water storage (mm)
+        owner:
+          type: integer
+      required:
+      - area
+      - boundary
+      - deleted
+      - deleted_by_cascade
+      - id
+      - name
+      - owner
+    ProductEnum:
+      enum:
+      - PLA
+      - PLE
+      - P82
+      - P83
+      - BAS
+      - CN
+      - N/A
+      type: string
+      description: |-
+        * `PLA` - Planet
+        * `PLE` - Planet Ed
+        * `P82` - Planet 8-band Tier 2
+        * `P83` - Planet 8-band Tier 3
+        * `BAS` - Basic Agriculture
+        * `CN` - Campo natural
+        * `N/A` - Not specified
+    Raster:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Raster date
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeF9fEnum'
+          default: RGB
+          title: Raster type
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          default: SE2
+          title: Raster source
+        discard:
+          type: boolean
+        url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        polygon:
+          type: integer
+        detection:
+          type: integer
+          nullable: true
+      required:
+      - id
+      - polygon
+    RegionEnum:
+      enum:
+      - URY
+      - ARG
+      - BRA
+      - BOL
+      - PRY
+      - USA
+      - PER
+      - COL
+      - PRT
+      - VEN
+      - MEX
+      - CHL
+      - ECU
+      - GTM
+      - HND
+      - NIC
+      - CUB
+      - DOM
+      - HTI
+      - PAN
+      - CRI
+      - JAM
+      - CAN
+      - ESP
+      - ITA
+      - FRA
+      - HUN
+      - UKR
+      - ROU
+      - BGR
+      - SRB
+      - GRC
+      - NLD
+      - BEL
+      - DEU
+      - AUT
+      - POL
+      - GBR
+      - N/A
+      type: string
+      description: |-
+        * `URY` - Uruguay
+        * `ARG` - Argentina
+        * `BRA` - Brazil
+        * `BOL` - Bolivia
+        * `PRY` - Paraguay
+        * `USA` - United States
+        * `PER` - Peru
+        * `COL` - Colombia
+        * `PRT` - Portugal
+        * `VEN` - Venezuela
+        * `MEX` - Mexico
+        * `CHL` - Chile
+        * `ECU` - Ecuador
+        * `GTM` - Guatemala
+        * `HND` - Honduras
+        * `NIC` - Nicaragua
+        * `CUB` - Cuba
+        * `DOM` - Dominican Republic
+        * `HTI` - Haiti
+        * `PAN` - Panama
+        * `CRI` - Costa Rica
+        * `JAM` - Jamaica
+        * `CAN` - Canada
+        * `ESP` - Spain
+        * `ITA` - Italy
+        * `FRA` - France
+        * `HUN` - Hungary
+        * `UKR` - Ukraine
+        * `ROU` - Romania
+        * `BGR` - Bulgaria
+        * `SRB` - Serbia
+        * `GRC` - Greece
+        * `NLD` - Netherlands
+        * `BEL` - Belgium
+        * `DEU` - Germany
+        * `AUT` - Austria
+        * `POL` - Poland
+        * `GBR` - United Kingdom
+        * `N/A` - Not specified
+    ResetToken:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+      - token
+    SourceEnum:
+      enum:
+      - PLA
+      - LA8
+      - LA9
+      - SE2
+      - PLM
+      type: string
+      description: |-
+        * `PLA` - PlanetScope
+        * `LA8` - Landsat 8
+        * `LA9` - Landsat 9
+        * `SE2` - Sentinel 2
+        * `PLM` - Planet + Modis
+    Sowing:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        crop:
+          type: integer
+        variety:
+          type: integer
+          nullable: true
+        predecessor:
+          type: integer
+          nullable: true
+        field:
+          type: integer
+          nullable: true
+        polygons:
+          type: array
+          items:
+            type: integer
+      required:
+      - crop
+      - deleted
+      - deleted_by_cascade
+      - id
+    SowingTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/Sowing'
+    Station:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        location:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - Point
+            coordinates:
+              type: array
+              items:
+                type: number
+                format: float
+              example:
+              - 12.9721
+              - 77.5933
+              minItems: 2
+              maxItems: 3
+        last_data:
+          nullable: true
+        owner:
+          type: integer
+          nullable: true
+      required:
+      - id
+      - location
+      - name
+    TypeF9fEnum:
+      enum:
+      - RGB
+      - NDVI
+      - NDWI
+      - CCCI
+      - NDRE
+      - RAW8
+      - RAW4
+      type: string
+      description: |-
+        * `RGB` - RGB
+        * `NDVI` - NDVI
+        * `NDWI` - NDWI
+        * `CCCI` - Indie Clorofila
+        * `NDRE` - NDRE
+        * `RAW8` - 8-band raw
+        * `RAW4` - 4-band raw
+    Users:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        company:
+          type: string
+          maxLength: 200
+        phone:
+          type: string
+          maxLength: 200
+        country:
+          $ref: '#/components/schemas/CountryEnum'
+        firebaseToken:
+          type: string
+          maxLength: 200
+      required:
+      - email
+      - id
+      - password
+    Variable:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        unit:
+          type: string
+          maxLength: 50
+      required:
+      - id
+      - name
+      - unit
+    Variety:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+        metadata:
+          nullable: true
+          title: VarietyMetadata
+        crop:
+          type: integer
+      required:
+      - crop
+      - id
+    Water:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: integer
+        polygons:
+          type: array
+          items:
+            type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - id
+      - value
+    WaterEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+      required:
+      - id
+    WaterTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/Water'
+    Waypoint:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        loc:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - Point
+            coordinates:
+              type: array
+              items:
+                type: number
+                format: float
+              example:
+              - 12.9721
+              - 77.5933
+              minItems: 2
+              maxItems: 3
+        field:
+          type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - field
+      - id
+      - loc
+    Weed:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        specie:
+          type: string
+          maxLength: 50
+        names:
+          type: array
+          items:
+            type: string
+            maxLength: 100
+        region:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegionEnum'
+      required:
+      - id
+    WeedReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        polygons:
+          type: array
+          items:
+            type: integer
+        species:
+          type: array
+          items:
+            type: integer
+      required:
+      - deleted
+      - deleted_by_cascade
+      - id
+      - species
+    WeedReportTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/WeedReport'
+    Yield:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deleted:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        deleted_by_cascade:
+          type: boolean
+          readOnly: true
+        date:
+          type: string
+          format: date
+          title: Log date
+        obs:
+          type: string
+          nullable: true
+          maxLength: 100
+        value:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Yield (kg/ha)
+        crop:
+          type: integer
+        variety:
+          type: integer
+          nullable: true
+        polygons:
+          type: array
+          items:
+            type: integer
+      required:
+      - crop
+      - deleted
+      - deleted_by_cascade
+      - id
+      - value
+    YieldTyped:
+      allOf:
+      - type: object
+        properties:
+          type:
+            type: string
+        required:
+        - type
+      - $ref: '#/components/schemas/Yield'
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
